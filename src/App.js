@@ -40,12 +40,16 @@ calculateFaceLocation = (data) => {
   const width = Number(image.width);
   const height = Number(image.height);
   return {
-    leftCol: clarifaiFace.left_col * width;
-    topRow: clarifaiFace.top_row * height;
-    rightCol: width - (clarifaiFace.right_col * width);
-    bottomRow: height - (clarifaiFace.bottom_row * height);
+    leftCol: clarifaiFace.left_col * width,
+    topRow: clarifaiFace.top_row * height,
+    rightCol: width - (clarifaiFace.right_col * width),
+    bottomRow: height - (clarifaiFace.bottom_row * height)
   }
 }
+
+  displayFaceBox = (box) => {
+    this.setState({box: box});
+  }
 
   onInputChange = (event) => {
     this.setState({input: event.target.value});    
@@ -54,7 +58,7 @@ calculateFaceLocation = (data) => {
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    .then(response => this.calculateFaceLocation(response))
+    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
     .catch(err => console.log(err));
   }
 
@@ -71,7 +75,7 @@ calculateFaceLocation = (data) => {
       onInputChange={this.onInputChange} 
       onButtonSubmit={this.onButtonSubmit}
       />
-     <FaceRecognition imageUrl={this.state.imageUrl} />
+     <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
     </div>
   );
 }
