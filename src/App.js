@@ -75,7 +75,7 @@ calculateFaceLocation = (data) => {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    fetch('https://sheltered-meadow-74884.herokuapp.com/imageurl', {
+    fetch('https://serene-ravine-66746.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -85,7 +85,7 @@ calculateFaceLocation = (data) => {
     .then(response => response.json())
     .then(response => {
       if (response) {
-          fetch('https://sheltered-meadow-74884.herokuapp.com/image', {
+          fetch('https://serene-ravine-66746.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
